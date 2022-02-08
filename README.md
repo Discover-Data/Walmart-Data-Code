@@ -1,0 +1,16 @@
+# Answering the Given Questions
+> What are the risks involved in building such a pipeline?
+
+The natural risk to building off of an API where there is no contractual support from the API publisher is that the application is entirely reliant on goodwill to operate, with no recourse in the event of outage or API update.  In fact, the twitter API is a good example of this, as version 1.1 will eventually be deprecated for version 2.0, meaning all 1.1 code running will eventually need repair.  Another issue arises when looking at the twitter API itself: In this proof-of-concept, there is a limit to the number of tweets that can be consumed per month, and historical lookup in all non-academic cases is not possible, meaning that the dataset will not be complete and may in fact be missing key information.  For instance, in the event of sentiment analysis over time for the term 'Justin Bieber', it is not possible to look over his rise to stardom via tweet text, only the most recent information.
+
+> What would a production-ready solution entail that a proof-of-concept would not?
+
+In this case, the production solution should be first and foremost robust, meaning an enterprise license for the twitter API, which guarantees a level of support and reliability as a corporate customer.  In terms of code design, there is much to be improved.  Currently, all credentials are expected to be stored in a YAML file within the root directory of the code -- this is insecure.  All information such as this should be protected and ideally located off-desktop, and the system overall should be hardened. Next, all code should have some degree of testing involved.  Personally, I am a fan of the red-green-refactor approach, and so I would write a series of test cases for the code to fulfill, then work to create queries and code products to then fulfill those cases.  Finally, The current method for filtering is rudimentary. Simply identifying keywords may have accuracy increased by using twitter's built-in entity detection system, and the keywords should be expanded to include a wider range of options: for instance, in this example, music videos that do not contain the word 'music' are included.
+
+> What level of effort is required to deliver each phase of the solution?
+
+As the above is a sample list, ideally, the first step of this process would be to deliver a technical design document on the necessary components, expected budgeting, and ideal outcome of the production system.  This is of moderate effort, as technical documents are meant to be dicussed and reviewed before any large-scale work begins (it is much cheaper to change a line in a document than to reprogram a system).  Writing test cases is of low effort, where programming to meet tests is of high effort.  Hardening a system, depending on the degree needed, can range from moderate to high effort depending on what is needed.
+
+> What is your estimated delivery timeline for a production-ready solution?
+
+Assuming each moderate effort task is one week, each high effort task is two weeks, and each low effort task is negligible, the project may vary between three and five weeeks for a production solution.  An additional week after being added to production should be allocated for maintainence, as bug fixing will always be necessary when an environment changes.
